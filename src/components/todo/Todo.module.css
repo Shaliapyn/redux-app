@@ -9,4 +9,10 @@
 }
 .card {
     margin-top: 2px;
+    
+}
+.container {
+    margin: 0 auto;
+    width: 60%;
+    border-radius: 12px;
 }

@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 
 import styles from "./Todo.module.css";
 
-import { Card, Container, IconButton, Button, Box } from "@material-ui/core";
+import { Card, IconButton, Button, Box } from "@material-ui/core";
 import { CardContent } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Delete } from "@material-ui/icons";
@@ -34,9 +34,9 @@ const Todo = ({ todo }) => {
   };
   const theme = useContext(ThemeContext);
   return (
-    <div>
-      <Container style={theme}>
-        <Card className={styles.card}
+      <div className={styles.container} style={theme}>
+        <Card 
+          className={styles.card}
           variant="outlined"
           style={theme}
         >
@@ -81,8 +81,7 @@ const Todo = ({ todo }) => {
             </CardContent>
           </CardContent>
         </Card>
-      </Container>
-    </div>
+      </div>
   );
 };
 
