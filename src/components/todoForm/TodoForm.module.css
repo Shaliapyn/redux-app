@@ -3,6 +3,7 @@
     max-width: 65%;
     display: flex;
     color: white;
+    padding: 10px
 }
 .input  {
     width: 100%;

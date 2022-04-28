@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useDispatch } from "react-redux";
 
 import styles from "./Todo.module.css";
 
@@ -8,7 +9,6 @@ import Typography from "@mui/material/Typography";
 import { Delete } from "@material-ui/icons";
 import TextField from "@mui/material/TextField";
 
-import { useDispatch } from "react-redux";
 import { removeTodo, editTodo } from "../store/actions/todoActions"
 import ThemeContext from "../../context/theme-context";
 
