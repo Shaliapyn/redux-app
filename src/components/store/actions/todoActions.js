@@ -12,9 +12,9 @@ export const removeTodo = (id) => {
         payload: id
     }
 }
-export const editTodo = (id) => {
+export const editTodo = (todo) => {
     return {
         type: EDIT_TODO,
-        payload: id
+        payload: todo
     }
 }

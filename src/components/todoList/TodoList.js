@@ -1,14 +1,20 @@
+
 import React from 'react'
 
-import Todo from "./todo"
+import Todo from "../todo"
+import ThemeContext from "../../context/theme-context"
 
-const TodoList = ({ todos }) => {
+
+const TodoList = ({ todos, theme }) => {
 
   return (
     <>
-      {todos.map((todo)=> (
-        <Todo todo={todo} key={todo.id}/>
+    <ThemeContext.Provider value={theme}>
+    {todos.map((todo)=> (
+          <Todo todo={todo} key={todo.id}/>
       ))}
+    </ThemeContext.Provider>
+      
     </>
   )
 }

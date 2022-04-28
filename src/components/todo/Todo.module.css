@@ -5,5 +5,8 @@
 .buttonsFlex {
     display: flex;
     justify-content: space-between;
-    width: 150px;
+    width: 230px;
+}
+.card {
+    margin-top: 2px;
 }

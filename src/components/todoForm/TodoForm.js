@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 
 import { useDispatch } from "react-redux";
 
@@ -7,6 +7,7 @@ import { Button } from "@material-ui/core";
 
 import styles from "./TodoForm.module.css";
 import { addTodo } from "../store/actions/todoActions";
+import ThemeContext from "../../context/theme-context";
 
 const TodoForm = () => {
 const [inputVal, setInputVal] = useState("")
@@ -23,22 +24,26 @@ const handleSubmit = (e) => {
     dispatch(addTodo(newTodo))
     setInputVal("")
 }
-
+  const theme = useContext(ThemeContext)
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <div className={styles.formContainer} style={theme}>
+      <form className={styles.form} onSubmit={handleSubmit}>
       <TextField
+        required
+        placeholder="Write down your todo"
+        inputProps={{ style: theme}}
+        className={styles.input}
         sx={{ pr: 3 }}
-        id="outlined-basic"
-        label="write down To-do"
-        variant="outlined"
-        style={{ width: "100%" }}
+        id="standard-basic" variant="outlined"
         value={inputVal}
         onChange={(e) => setInputVal(e.target.value)}
       />
-      <Button type="submit" variant="contained" color="primary">
+      <Button type="submit" variant="outlined" color="primary">
         Add Todo
       </Button>
     </form>
+    </div>
+    
   );
 };
 
