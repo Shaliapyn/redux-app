@@ -10,7 +10,7 @@ import { Delete } from "@material-ui/icons";
 import TextField from "@mui/material/TextField";
 
 import ThemeContext from "../../context/theme-context";
-import { deleteDoc, doc } from "firebase/firestore";
+import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db } from "../../firebase";
 
 const Todo = ({ todo }) => {
@@ -22,8 +22,15 @@ const Todo = ({ todo }) => {
     await deleteDoc(todoDoc)
 
   };
-  const editTodo = () => {
+  const saveUpdadeTodo = async (id) => {
+    const updatedDoc = doc(db, "todos", id);
+    const newFields = {title: editInpVal};
+    await updateDoc(updatedDoc, newFields);
+    setEditInp(false)
+  }
+  const editTodo = (todo) => {
     setEditInp(true)
+    setEditInpVal(todo.title)
   }
   
   const theme = useContext(ThemeContext);
@@ -54,7 +61,7 @@ const Todo = ({ todo }) => {
             <CardContent className={styles.buttonsFlex}>
               {editInp ? (
                 <Box spacing={1} className={styles.buttonsFlex}>
-                  <Button style={theme} variant="outlined">
+                  <Button onClick={() => saveUpdadeTodo(todo.id)} style={theme} variant="outlined">
                     Save
                   </Button>
                   <Button style={theme} onClick={() => setEditInp(false)} variant="outlined">
@@ -62,7 +69,7 @@ const Todo = ({ todo }) => {
                   </Button>
                 </Box>
               ) : (
-                <Button onClick={() => editTodo()} style={theme} variant="outlined">
+                <Button onClick={() => editTodo(todo)} style={theme} variant="outlined">
                   Edit
                 </Button>
               )}
