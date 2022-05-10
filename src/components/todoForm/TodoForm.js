@@ -16,7 +16,8 @@ const handleSubmit = async (e) => {
 
     const newTodo = {
             title: inputVal,
-            id: Date.now().toString()
+            id: Date.now().toString(),
+            isCompleted: false
     };
     await addDoc(todoCollectionRef, newTodo)
     setInputVal("")
