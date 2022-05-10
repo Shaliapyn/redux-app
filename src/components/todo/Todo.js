@@ -22,6 +22,9 @@ const Todo = ({ todo }) => {
     await deleteDoc(todoDoc)
 
   };
+  const editTodo = () => {
+    setEditInp(true)
+  }
   
   const theme = useContext(ThemeContext);
   return (
@@ -59,7 +62,7 @@ const Todo = ({ todo }) => {
                   </Button>
                 </Box>
               ) : (
-                <Button style={theme}  variant="outlined">
+                <Button onClick={() => editTodo()} style={theme} variant="outlined">
                   Edit
                 </Button>
               )}
