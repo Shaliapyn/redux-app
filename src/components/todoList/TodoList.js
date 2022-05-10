@@ -11,7 +11,7 @@ const TodoList = ({ todos, theme }) => {
     <>
     <ThemeContext.Provider value={theme}>
     {todos.map((todo)=> (
-          <Todo todo={todo} key={todo.id}/>
+          <Todo  todo={todo} key={todo.id}/>
       ))}
     </ThemeContext.Provider>
       

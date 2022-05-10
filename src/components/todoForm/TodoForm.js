@@ -1,27 +1,24 @@
 import React, { useContext, useState } from "react";
 
-import { useDispatch } from "react-redux";
-
 import TextField from "@mui/material/TextField";
 import { Button } from "@material-ui/core";
 
 import styles from "./TodoForm.module.css";
-import { addTodo } from "../store/actions/todoActions";
 import ThemeContext from "../../context/theme-context";
+import { addDoc } from "firebase/firestore";
+import { todoCollectionRef } from "../../firebase";
 
 const TodoForm = () => {
 const [inputVal, setInputVal] = useState("")
 
-const dispatch = useDispatch()
-
-const handleSubmit = (e) => {
+const handleSubmit = async (e) => {
     e.preventDefault();
 
     const newTodo = {
             title: inputVal,
             id: Date.now().toString()
     };
-    dispatch(addTodo(newTodo))
+    await addDoc(todoCollectionRef, newTodo)
     setInputVal("")
 }
   const theme = useContext(ThemeContext)

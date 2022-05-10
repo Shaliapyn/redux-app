@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { useDispatch } from "react-redux";
+
 
 import styles from "./Todo.module.css";
 
@@ -9,29 +9,20 @@ import Typography from "@mui/material/Typography";
 import { Delete } from "@material-ui/icons";
 import TextField from "@mui/material/TextField";
 
-import { removeTodo, editTodo } from "../store/actions/todoActions"
 import ThemeContext from "../../context/theme-context";
+import { deleteDoc, doc } from "firebase/firestore";
+import { db } from "../../firebase";
 
 const Todo = ({ todo }) => {
-  const dispatch = useDispatch();
   const [editInp, setEditInp] = useState(false);
   const [editInpVal, setEditInpVal] = useState("");
 
-  const handleRemove = (id) => {
-    dispatch(removeTodo(id));
+  const handleRemove = async (id) => {
+    const todoDoc = doc(db, "todos", id);
+    await deleteDoc(todoDoc)
+
   };
-  const handleEdit = (todo) => {
-    const updatedTodo = {
-      title: editInpVal,
-      id: todo.id,
-    };
-    dispatch(editTodo(updatedTodo));
-    setEditInp(false);
-  };
-  const clickEdit = () => {
-    setEditInp(true);
-    setEditInpVal(todo.title);
-  };
+  
   const theme = useContext(ThemeContext);
   return (
       <div className={styles.container} style={theme}>
@@ -60,7 +51,7 @@ const Todo = ({ todo }) => {
             <CardContent className={styles.buttonsFlex}>
               {editInp ? (
                 <Box spacing={1} className={styles.buttonsFlex}>
-                  <Button style={theme} onClick={() => handleEdit(todo)} variant="outlined">
+                  <Button style={theme} variant="outlined">
                     Save
                   </Button>
                   <Button style={theme} onClick={() => setEditInp(false)} variant="outlined">
@@ -68,7 +59,7 @@ const Todo = ({ todo }) => {
                   </Button>
                 </Box>
               ) : (
-                <Button style={theme} onClick={clickEdit} variant="outlined">
+                <Button style={theme}  variant="outlined">
                   Edit
                 </Button>
               )}

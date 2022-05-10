@@ -1,20 +1,9 @@
-import { ADD_TODO, REMOVE_TODO, EDIT_TODO } from "../types/types"
+import { SET_TODOS } from "../types/types"
 
-export const addTodo = (todo) => {
+
+export const setTodo = (todos) => {
     return {
-        type: ADD_TODO,
-        payload: todo
-    }
-}
-export const removeTodo = (id) => {
-    return {
-        type: REMOVE_TODO,
-        payload: id
-    }
-}
-export const editTodo = (todo) => {
-    return {
-        type: EDIT_TODO,
-        payload: todo
+        type: SET_TODOS,
+        payload: todos
     }
 }
