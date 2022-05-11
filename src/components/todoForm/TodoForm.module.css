@@ -14,3 +14,8 @@
     width: 60%;
     border-radius: 12px;
 }
+.btnsFlex {
+    display: flex;
+    justify-content: space-between;
+    width: 400px;
+}

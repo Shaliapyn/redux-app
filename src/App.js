@@ -23,9 +23,12 @@ function App() {
   };
   useEffect(() => {
     onSnapshot(todoCollectionRef, (snapshot) => {
-      dispatch(setTodo(snapshot.docs.map((doc) => ({...doc.data(), id: doc.id}))));
+      dispatch(
+        setTodo(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
+      );
     });
   }, []);
+  
   return (
     <div className="App">
       <ThemeContext.Provider value={theme}>
@@ -38,7 +41,7 @@ function App() {
           Change theme
         </Button>
         <TodoForm />
-        <TodoList theme={theme} todos={todos}  />
+        <TodoList theme={theme} todos={todos} />
       </ThemeContext.Provider>
     </div>
   );
