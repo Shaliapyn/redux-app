@@ -11,13 +11,14 @@ import TextField from "@mui/material/TextField";
 import Checkbox from '@mui/material/Checkbox';
 
 import ThemeContext from "../../context/theme-context";
+
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { db, todoCollectionRef } from "../../firebase";
 
 const Todo = ({ todo }) => {
   const [editInp, setEditInp] = useState(false);
   const [editInpVal, setEditInpVal] = useState("");
-  const [checked, setChecked] = useState(false)
+
 
   const handleRemove = async (id) => {
     const todoDoc = doc(db, "todos", id);
@@ -30,11 +31,11 @@ const Todo = ({ todo }) => {
     await updateDoc(updatedDoc, newField);
     setEditInp(false)
   }
-  const isChecked = async (id) => {
-    setChecked(!checked)
+  const toggleChecked = async (id) => {
     const updatedDoc = doc(todoCollectionRef, id);
-    const newField = {isCompleted: checked};
+    const newField = {isCompleted: !todo.isCompleted};
     await updateDoc(updatedDoc, newField);
+    
   }
   const editTodo = (todo) => {
     setEditInp(true)
@@ -87,7 +88,7 @@ const Todo = ({ todo }) => {
               >
                 <Delete style={{color: "#851919"}} />
               </IconButton>
-              <Checkbox checked={todo.isCompleted} onChange={() => isChecked(todo.id)}/>
+              <Checkbox checked={todo.isCompleted} onClick={() => toggleChecked(todo.id)}/>
             </CardContent>
           </CardContent>
         </Card>

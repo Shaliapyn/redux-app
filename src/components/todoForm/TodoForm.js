@@ -10,7 +10,7 @@ import { todoCollectionRef } from "../../firebase";
 import { useDispatch } from "react-redux";
 import { setTodo } from "../store/actions/todoActions";
 
-const TodoForm = () => {
+const TodoForm = ({isChecked}) => {
   const dispatch = useDispatch();
   const [inputVal, setInputVal] = useState("");
   const [toggleTodo, setToggleTodo] = useState(false);
@@ -19,7 +19,7 @@ const TodoForm = () => {
     e.preventDefault();
 
     const newTodo = {
-      title: inputVal,
+      title: inputVal.toUpperCase(),
       id: Date.now().toString(),
       isCompleted: false,
     };
@@ -30,7 +30,7 @@ const TodoForm = () => {
     setToggleTodo(!toggleTodo);
       const completed = query(
         todoCollectionRef,
-        where("isCompleted", "==", false)
+        where("isCompleted", "==", false),
       );
       const data = await getDocs(completed);
 
@@ -58,7 +58,7 @@ const TodoForm = () => {
           sx={{ pr: 3 }}
           id="standard-basic"
           variant="outlined"
-          value={inputVal}
+          value={inputVal.toUpperCase()}
           onChange={(e) => setInputVal(e.target.value)}
         />
         <div className={styles.btnsFlex}>

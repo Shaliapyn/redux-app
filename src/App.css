@@ -3,3 +3,13 @@
     top: 58px;
     left: 20.5%;
 }
+.show-more {
+    display: flex;
+    justify-content: space-between;
+    width: 160px;
+    margin: 0 auto;
+    margin-top: 15px;
+}
+.show-more button {
+    cursor: pointer;
+}
