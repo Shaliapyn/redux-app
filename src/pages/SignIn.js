@@ -1,26 +1,15 @@
 import { Link } from "react-router-dom"
-import { signInWithPopup, signOut } from "firebase/auth"
-import { auth, googleProvider } from '../firebase'
 
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 
 const SignIn = () => {
-  const signWithGoogle = () => {
-    signInWithPopup(auth, googleProvider)
-      .then(res => {
-        const user = res.user
-      })
-  } 
-
-  
-  const logOut = () => {
-    signOut(auth).then(() => console.log("sign out is succesfull"))
-  }
+  const {signWithGoogle} = useContext(AuthContext)
   return (
     <div>
       <Link to="/">to home</Link>
       <button onClick={signWithGoogle}>Autorization</button>
-      <button onClick={logOut}>sign out</button>
     </div>
   )
 }

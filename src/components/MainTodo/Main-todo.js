@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 
@@ -9,7 +9,7 @@ import { setTodo } from "../store/actions/todoActions";
 import ThemeContext, { themes } from "../../context/theme-context";
 
 import { Button } from "@material-ui/core";
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 import {
   onSnapshot,
@@ -19,12 +19,17 @@ import {
   getDocs,
   where,
 } from "firebase/firestore";
-import { todoCollectionRef } from "../../firebase";
+import { auth, todoCollectionRef } from "../../firebase";
+import { signOut } from "firebase/auth";
+import { AuthContext } from "../../context/AuthContext";
 
 function MainTodo() {
   const todos = useSelector((state) => state.todoReducer.todos);
   const dispatch = useDispatch();
   const [howBigLimit, setHowBigLimit] = useState(5);
+
+  const navigate = useNavigate()
+  const {user} = useContext(AuthContext)
 
   const [theme, setTheme] = useState(themes.dark);
   const toggleTheme = () => {
@@ -83,9 +88,13 @@ function MainTodo() {
   const showMore = () => {
     setHowBigLimit(howBigLimit + 5);
   };
+  const logOut = () => {
+    signOut(auth).then(() => navigate("/SignIn"));
+  }
   return (
     <div className="App">
-      <Link to="/SignIn">to sign in</Link>
+      <button onClick={logOut}>LogOut</button>
+      <h2 className="currentUser">Current User {user && user}</h2>
       <ThemeContext.Provider value={theme}>
         <Button
           variant="outlined"

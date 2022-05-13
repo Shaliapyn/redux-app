@@ -1,7 +1,7 @@
 .btn_change-theme {
     position: absolute;
     top: 58px;
-    left: 16.5%;
+    left: 20.5%;
 }
 .show-more {
     display: flex;
@@ -12,4 +12,7 @@
 }
 .show-more button {
     cursor: pointer;
+}
+.currentUser {
+    text-align: center;
 }
