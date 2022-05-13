@@ -3,6 +3,9 @@ import {
     collection,
     getFirestore
 } from "firebase/firestore"
+import { getAuth, GoogleAuthProvider, onAuthStateChanged } from "firebase/auth"
+import { useContext, useEffect, useState } from "react";
+import { AuthContext } from "./context/AuthContext";
 
 
 const firebaseConfig = {
@@ -18,5 +21,22 @@ const firebaseConfig = {
  const app = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app)
+export const auth = getAuth(app)
+export const googleProvider = new GoogleAuthProvider()
+
+export const AuthContextProvider = props => {
+  const [user, setUser] = useState()
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(getAuth(), setUser())
+    return () => unsubscribe()
+  }, [])
+  return <AuthContextProvider value ={{ user }} {...props} />
+}
+
+export const useAuthState = () => {
+  const auth = useContext(AuthContext)
+  return { ...auth, isAuthenticated: auth.user != null }
+}
 
 export const todoCollectionRef = collection(db, "todos")

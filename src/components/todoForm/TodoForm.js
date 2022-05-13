@@ -5,15 +5,14 @@ import { Button } from "@material-ui/core";
 
 import styles from "./TodoForm.module.css";
 import ThemeContext from "../../context/theme-context";
-import { addDoc, where, query, getDocs } from "firebase/firestore";
-import { todoCollectionRef } from "../../firebase";
-import { useDispatch } from "react-redux";
-import { setTodo } from "../store/actions/todoActions";
 
-const TodoForm = ({isChecked}) => {
-  const dispatch = useDispatch();
+import { addDoc } from "firebase/firestore";
+import { todoCollectionRef } from "../../firebase";
+
+
+const TodoForm = ({filter}) => {
+
   const [inputVal, setInputVal] = useState("");
-  const [toggleTodo, setToggleTodo] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -26,26 +25,6 @@ const TodoForm = ({isChecked}) => {
     await addDoc(todoCollectionRef, newTodo);
     setInputVal("");
   };
-  const hideCompleted = async () => {
-    setToggleTodo(!toggleTodo);
-      const completed = query(
-        todoCollectionRef,
-        where("isCompleted", "==", false),
-      );
-      const data = await getDocs(completed);
-
-      dispatch(
-        setTodo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-      );
-  };
-  const showCompleted = async () => {
-    setToggleTodo(!toggleTodo);
-    const data = await getDocs(todoCollectionRef);
-
-      dispatch(
-        setTodo(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })))
-      );
-  }
   const theme = useContext(ThemeContext);
   return (
     <div className={styles.formContainer} style={theme}>
@@ -65,25 +44,13 @@ const TodoForm = ({isChecked}) => {
           <Button type="submit" variant="outlined" color="primary">
             Add Todo
           </Button>
-          {toggleTodo ? (
-            <Button
-              onClick={hideCompleted}
-              type="button"
-              variant="outlined"
-              color="primary"
-            >
-              Hide completed
-            </Button>
-          ) : (
-            <Button
-              onClick={showCompleted}
-              type="button"
-              variant="outlined"
-              color="primary"
-            >
-              Show All
-            </Button>
-          )}
+          <select onChange={filter} name="" id="">
+            <option value="completed">completed</option>
+            <option value="Not completed">Not completed</option>
+            <option  value="All" selected>All</option>
+          </select>
+          
+         
         </div>
       </form>
     </div>
