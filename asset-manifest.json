@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Shaliapyn/redux-app/static/css/main.c94e1412.css",
+    "main.js": "/Shaliapyn/redux-app/static/js/main.a9b855ac.js",
+    "index.html": "/Shaliapyn/redux-app/index.html",
+    "main.c94e1412.css.map": "/Shaliapyn/redux-app/static/css/main.c94e1412.css.map",
+    "main.a9b855ac.js.map": "/Shaliapyn/redux-app/static/js/main.a9b855ac.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c94e1412.css",
+    "static/js/main.a9b855ac.js"
+  ]
+}
